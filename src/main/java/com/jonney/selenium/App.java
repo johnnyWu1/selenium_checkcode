@@ -9,12 +9,13 @@ import static com.jonney.selenium.util.SeleniumHelpers.waitPageRefresh;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import com.jonney.selenium.util.ImageFilter;
@@ -31,10 +32,10 @@ public class App {
 		// System.setProperty("webdriver.firefox.profile",
 		// "C:/Users/wyq/AppData/Local/Google/Chrome/Application/chromedriver.exe");
 		// D:\Programs\phantom\bin
-		WebDriver driver = new ChromeDriver();
+//		WebDriver driver = new ChromeDriver();
 		System.setProperty("phantomjs.binary.path",
 				"D:/Programs/phantom/bin/phantomjs.exe");
-//		PhantomJSDriver driver = new PhantomJSDriver();
+		PhantomJSDriver driver = new PhantomJSDriver();
 ////		driver.
 //		Object o = driver.executePhantomJS("phantom.abcde=require('webpage').create();return phantom.abcde;");//'http://www.baidu.com'
 //		System.out.println(o);
@@ -60,6 +61,7 @@ public class App {
 		// while (n-- > 0) {
 
 		driver.get(url);
+		driver.manage().window().maximize();
 		boolean isSuccess;
 		do {
 			waitForElementVisible(driver, By.cssSelector("#txtUserName"), 3);
@@ -79,12 +81,12 @@ public class App {
 			System.out.println(recognizeText);
 			driver.findElement(By.id("Button1")).click();
 			isSuccess = true;
-			Alert alert = waitForAlert(driver, 3);
-			if (alert != null) {
-				System.out.println("Alert: " + alert.getText());
-				alert.accept();
-				isSuccess = false;
-			}
+//			Alert alert = waitForAlert(driver, 3);
+//			if (alert != null) {
+//				System.out.println("Alert: " + alert.getText());
+//				alert.accept();
+//				isSuccess = false;
+//			}
 			if (isSuccess) {
 				if (!waitForElementPresent(driver,
 						By.cssSelector("li.top:nth-child(1) > a:nth-child(1) > span:nth-child(1)"), 3)) {
@@ -100,17 +102,20 @@ public class App {
 		// a:nth-child(1)
 		WebElement nav = driver.findElement(By.cssSelector("li.top:nth-child(5) > a:nth-child(1)"));
 		action.moveToElement(nav, 2, 2).build().perform();
-
+		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc1.png"));
 		nav = driver.findElement(By.xpath("//*[@id='headDiv']/ul/li[5]//a[text()='成绩查询']"));
-
 		action.moveToElement(nav, 2, 2).click().build().perform();
-
+		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc2.png"));
 		// driver.findElement(By.cssSelector("li.top:nth-child(5) >
 		// ul:nth-child(2) > li:nth-child(8) > a:nth-child(1)")).click();
 		waitForElementPresent(driver, By.cssSelector("#iframeautoheight"), 3);
-		driver = driver.switchTo().frame("iframeautoheight");
+//		driver = (PhantomJSDriver) driver.switchTo().frame("iframeautoheight");
+		 driver.switchTo().frame(driver.findElement(By.cssSelector("#iframeautoheight")));
+		 
 		waitPageRefresh(driver, 3);
-
+		System.out.println("WDD:"+driver.getCurrentUrl());
+		System.out.println("WDD:"+driver.findElement(By.tagName("body")).getText());
+		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc5.png"));
 		if (!waitForElementPresent(driver, By.cssSelector("#ddlXN"), 20)) {
 			System.out.println(driver.getPageSource());
 			System.exit(0);

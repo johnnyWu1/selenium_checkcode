@@ -27,6 +27,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/jai_imageio-1.1.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

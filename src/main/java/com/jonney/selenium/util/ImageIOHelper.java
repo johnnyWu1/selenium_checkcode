@@ -7,22 +7,14 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.ImageProducer;
 import java.awt.image.WritableRaster;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Locale;
 
-import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
-import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JOptionPane;
-
-import com.sun.media.imageio.plugins.tiff.TIFFImageWriteParam;
 
 public class ImageIOHelper {
 
@@ -81,46 +73,46 @@ public class ImageIOHelper {
 //
 //	}
 
-	public static File createImage(BufferedImage bi) {
-
-		File tempFile = null;
-
-		try {
-			tempFile = File.createTempFile("tempImageFile", ".tif");
-			tempFile.deleteOnExit();
-			TIFFImageWriteParam tiffWriteParam = new TIFFImageWriteParam(Locale.US);
-
-			tiffWriteParam.setCompressionMode(ImageWriteParam.MODE_DISABLED);
-			// Get tif writer and set output to file
-
-			Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("tiff");
-
-			ImageWriter writer = writers.next();
-
-			IIOImage image = new IIOImage(bi, null, null);
-
-			tempFile = tempImageFile(tempFile);
-
-			ImageOutputStream ios = ImageIO.createImageOutputStream(tempFile);
-
-			writer.setOutput(ios);
-
-			writer.write(null, image, tiffWriteParam);
-
-			ios.close();
-
-			writer.dispose();
-
-		} catch (Exception exc) {
-
-			exc.printStackTrace();
-
-		}
-
-		return tempFile;
-
-	}
-	
+//	public static File createImage(BufferedImage bi) {
+//
+//		File tempFile = null;
+//
+//		try {
+//			tempFile = File.createTempFile("tempImageFile", ".tif");
+//			tempFile.deleteOnExit();
+//			TIFFImageWriteParam tiffWriteParam = new TIFFImageWriteParam(Locale.US);
+//
+//			tiffWriteParam.setCompressionMode(ImageWriteParam.MODE_DISABLED);
+//			// Get tif writer and set output to file
+//
+//			Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("tiff");
+//
+//			ImageWriter writer = writers.next();
+//
+//			IIOImage image = new IIOImage(bi, null, null);
+//
+//			tempFile = tempImageFile(tempFile);
+//
+//			ImageOutputStream ios = ImageIO.createImageOutputStream(tempFile);
+//
+//			writer.setOutput(ios);
+//
+//			writer.write(null, image, tiffWriteParam);
+//
+//			ios.close();
+//
+//			writer.dispose();
+//
+//		} catch (Exception exc) {
+//
+//			exc.printStackTrace();
+//
+//		}
+//
+//		return tempFile;
+//
+//	}
+//	
 	public static File createPngImage(BufferedImage bi) {
 		File tempFile = null;
 		try {
