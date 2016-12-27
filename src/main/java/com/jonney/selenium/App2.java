@@ -3,7 +3,7 @@ package com.jonney.selenium;
 import static com.jonney.selenium.util.SeleniumHelpers.captureElement;
 import static com.jonney.selenium.util.SeleniumHelpers.waitForElementPresent;
 import static com.jonney.selenium.util.SeleniumHelpers.waitForElementVisible;
-
+import static com.jonney.selenium.util.SeleniumHelpers.waitPageRefresh;
 import java.io.File;
 import java.util.Scanner;
 
@@ -81,8 +81,9 @@ public class App2 {
 		// alert.accept();
 		// isSuccess = false;
 		// }
-		if (!waitForElementPresent(pdriver, By.cssSelector("li.top:nth-child(1) > a:nth-child(1) > span:nth-child(1)"),
-				3)) {
+		waitPageRefresh((WebDriver)pdriver,5);
+		
+		if (pdriver.getPageSource().indexOf("验证码不正确")!=-1&&pdriver.getCurrentUrl().endsWith("default2.aspx")) {
 			// driver.get("http://10.8.9.49/");
 			isSuccess = false;
 		}else{
@@ -175,10 +176,10 @@ public class App2 {
 
 		WebElement txtXh = pdriver.findElement(By.id("txtUserName"));
 		txtXh.clear();
-		txtXh.sendKeys("201340922108");
+		txtXh.sendKeys("201340922s");
 		WebElement txtPass = pdriver.findElement(By.id("TextBox2"));
 		txtPass.clear();
-		txtPass.sendKeys("wu950429");
+		txtPass.sendKeys("556d56s8d");
 		yzmImg = captureElement(pdriver.findElement(By.id("icode")));
 
 		final Object img = ((JavascriptExecutor) driver)
