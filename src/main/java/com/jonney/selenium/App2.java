@@ -105,7 +105,7 @@ public class App2 {
 				cs_count,
 				success_count,
 				cs_count-success_count,
-				String .format("%.2f%%",1.0*success_count/cs_count)
+				String .format("%.2f%%",100.0*success_count/cs_count)
 				);
 		
 	}
