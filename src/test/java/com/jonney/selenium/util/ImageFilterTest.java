@@ -1,16 +1,19 @@
 package com.jonney.selenium.util;
 
 import static com.jonney.selenium.util.SeleniumHelpers.captureElement;
+import static com.jonney.selenium.util.SeleniumHelpers.waitForElementVisible;
 
 import java.io.File;
 import java.util.Date;
 import java.util.Scanner;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.base.Predicate;
@@ -21,20 +24,25 @@ public class ImageFilterTest {
 	public void test() throws Exception {
 		
 		System.setProperty("webdriver.chrome.driver", "C:/Users/wyq/AppData/Local/Google/Chrome/Application/chromedriver.exe");
-    	Scanner input = new Scanner(System.in);
+    	System.setProperty("phantomjs.binary.path",
+				"D:/Programs/phantom/bin/phantomjs.exe");
+		Scanner input = new Scanner(System.in);
     	WebDriver driver= new ChromeDriver();
+    	PhantomJSDriver pdriver = new PhantomJSDriver();
+
     	driver.get(new File("show.html").getAbsolutePath());
     	
 		while(true){
 			
 	    	int i = 10;
 	    	while(i--!=0){
-				ImageFilter imageFilter = new ImageFilter(genAndGetYzm2(driver));
+				ImageFilter imageFilter = new ImageFilter(genAndGetYzm2(driver,pdriver));
 				imageFilter.filterColor(0xff0000cc,150);
 				File restu = imageFilter.getImageFile();
 				showImgJieGuoPic(driver,imageFilter.getImageFile());
 				String recognizeText = OCR.recognizeText(restu).trim().replaceAll("\\s", "");
 				showCode(driver,recognizeText);
+				checkCode(driver,pdriver,recognizeText);
 	    	}
 	    	Thread.sleep(1500);
 //	    	if(input.nextLine().trim().equalsIgnoreCase("exit")){
@@ -62,6 +70,10 @@ public class ImageFilterTest {
 		
 		
 		
+		
+	}
+
+	private void checkCode(WebDriver driver, PhantomJSDriver pdriver, String recognizeText) {
 		
 	}
 
@@ -125,8 +137,23 @@ public class ImageFilterTest {
 //		return yzmImg;
 //	}
 	
-	private static File genAndGetYzm2(final WebDriver driver) throws Exception {
+	private static File genAndGetYzm2(final WebDriver driver, PhantomJSDriver pdriver) throws Exception {
 		File yzmImg = null;
+		
+		if(pdriver.getTitle().indexOf("请登录")==-1){
+			pdriver.get("http://10.8.9.49");
+		}
+		waitForElementVisible(pdriver, By.cssSelector("#txtUserName"), 3);
+
+		WebElement txtXh = pdriver.findElement(By.id("txtUserName"));
+		txtXh.clear();
+		txtXh.sendKeys("201340922108");
+		WebElement txtPass = pdriver.findElement(By.id("TextBox2"));
+		txtPass.clear();
+		txtPass.sendKeys("wu950429");
+		yzmImg = captureElement(pdriver.findElement(By.id("icode")));
+		
+		
 		final Object img = ((JavascriptExecutor)driver).executeScript(
 				"var content =  document.querySelector('#content');"
 				+ "var tr;"
@@ -145,7 +172,7 @@ public class ImageFilterTest {
 				+ "tr.append(td1);tr.append(td2);tr.append(td3);"
 				+ "content.appendChild(tr);"
 				+ "return img;",
-				"http://10.8.9.49/CheckCode.aspx?"+new Date().getTime()
+				"file:///"+yzmImg.getAbsolutePath()
 				);  
 		
 		if(img instanceof WebElement){
@@ -155,7 +182,6 @@ public class ImageFilterTest {
 					return (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", (WebElement)img);
 				}
 			});
-			yzmImg = captureElement((WebElement)img);
 		}
 		return yzmImg;
 	}
