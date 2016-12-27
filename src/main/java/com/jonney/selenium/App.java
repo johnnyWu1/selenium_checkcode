@@ -31,10 +31,10 @@ public class App {
 				"C:/Users/wyq/AppData/Local/Google/Chrome/Application/chromedriver.exe");
 		// System.setProperty("webdriver.firefox.profile",
 		// "C:/Users/wyq/AppData/Local/Google/Chrome/Application/chromedriver.exe");
-		// D:\Programs\phantom\bin
+		// D:\Programs\phantom\bin  D:\Programs\phantomjs-2.1.1-windows\bin
 //		WebDriver driver = new ChromeDriver();
 		System.setProperty("phantomjs.binary.path",
-				"D:/Programs/phantom/bin/phantomjs.exe");
+				"D:/Programs/phantomjs-2.1.1-windows/bin/phantomjs.exe");
 		PhantomJSDriver driver = new PhantomJSDriver();
 ////		driver.
 //		Object o = driver.executePhantomJS("phantom.abcde=require('webpage').create();return phantom.abcde;");//'http://www.baidu.com'
@@ -102,10 +102,10 @@ public class App {
 		// a:nth-child(1)
 		WebElement nav = driver.findElement(By.cssSelector("li.top:nth-child(5) > a:nth-child(1)"));
 		action.moveToElement(nav, 2, 2).build().perform();
-		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc1.png"));
+//		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc1.png"));
 		nav = driver.findElement(By.xpath("//*[@id='headDiv']/ul/li[5]//a[text()='成绩查询']"));
 		action.moveToElement(nav, 2, 2).click().build().perform();
-		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc2.png"));
+//		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc2.png"));
 		// driver.findElement(By.cssSelector("li.top:nth-child(5) >
 		// ul:nth-child(2) > li:nth-child(8) > a:nth-child(1)")).click();
 		waitForElementPresent(driver, By.cssSelector("#iframeautoheight"), 3);
@@ -113,9 +113,9 @@ public class App {
 		 driver.switchTo().frame(driver.findElement(By.cssSelector("#iframeautoheight")));
 		 
 		waitPageRefresh(driver, 3);
-		System.out.println("WDD:"+driver.getCurrentUrl());
-		System.out.println("WDD:"+driver.findElement(By.tagName("body")).getText());
-		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc5.png"));
+//		System.out.println("WDD:"+driver.getCurrentUrl());
+//		System.out.println("WDD:"+driver.findElement(By.tagName("body")).getText());
+//		FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("bbc5.png"));
 		if (!waitForElementPresent(driver, By.cssSelector("#ddlXN"), 20)) {
 			System.out.println(driver.getPageSource());
 			System.exit(0);
@@ -134,7 +134,7 @@ public class App {
 			Thread.sleep(1000);
 
 			List<WebElement> trs = driver.findElements(By.xpath("//*[@id='Datagrid1']/tbody/tr"));
-			System.out.println("size:" + trs.size());
+//			System.out.println("size:" + trs.size());
 			for (WebElement webElement : trs) {
 				// *[@id="Datagrid1"]/tbody/tr[2]/td[4]
 
