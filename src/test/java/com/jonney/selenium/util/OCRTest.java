@@ -9,9 +9,9 @@ public class OCRTest {
 	
 	@Test
 	public void testOCR(){
-//		OCR ocr=new OCR();
+//		OCR2 ocr=new OCR2();
 //        try {
-//           String maybe = ocr.recognizeText(new File("D://testocr.jpg"));
+//           String maybe = ocr.recognizeText(new ImageFilter(new File("abc.png")).getImageFile());
 //           System.out.println(maybe);
 //       } catch (Exception e) {
 //           // TODO Auto-generated catch block

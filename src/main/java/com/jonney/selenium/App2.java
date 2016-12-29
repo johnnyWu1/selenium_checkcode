@@ -1,9 +1,9 @@
 package com.jonney.selenium;
 
 import static com.jonney.selenium.util.SeleniumHelpers.captureElement;
-import static com.jonney.selenium.util.SeleniumHelpers.waitForElementPresent;
 import static com.jonney.selenium.util.SeleniumHelpers.waitForElementVisible;
 import static com.jonney.selenium.util.SeleniumHelpers.waitPageRefresh;
+
 import java.io.File;
 import java.util.Scanner;
 
@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.base.Predicate;
 import com.jonney.selenium.util.ImageFilter;
-import com.jonney.selenium.util.OCR;
+import com.jonney.selenium.util.OCR2;
 
 public class App2 {
 	
@@ -41,7 +41,7 @@ public class App2 {
 				imageFilter.filterColor(0xff0000cc, 150);
 				File restu = imageFilter.getImageFile();
 				showImgJieGuoPic(driver, imageFilter.getImageFile());
-				String recognizeText = OCR.recognizeText(restu).trim().replaceAll("\\s", "");
+				String recognizeText = OCR2.recognizeText(restu).trim().replaceAll("\\s", "");
 				showCode(driver, recognizeText);
 				checkCode(driver, pdriver, recognizeText);
 			}

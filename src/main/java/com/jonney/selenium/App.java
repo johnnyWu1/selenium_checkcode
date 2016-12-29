@@ -1,7 +1,6 @@
 package com.jonney.selenium;
 
 import static com.jonney.selenium.util.SeleniumHelpers.captureElement;
-import static com.jonney.selenium.util.SeleniumHelpers.waitForAlert;
 import static com.jonney.selenium.util.SeleniumHelpers.waitForElementPresent;
 import static com.jonney.selenium.util.SeleniumHelpers.waitForElementVisible;
 import static com.jonney.selenium.util.SeleniumHelpers.waitPageRefresh;
@@ -9,17 +8,14 @@ import static com.jonney.selenium.util.SeleniumHelpers.waitPageRefresh;
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import com.jonney.selenium.util.ImageFilter;
-import com.jonney.selenium.util.OCR;
+import com.jonney.selenium.util.OCR2;
 
 /**
  * Hello world!
@@ -51,7 +47,7 @@ public class App {
 ////		System.out.println(driver.getPageSource());
 //		Thread.sleep(4000);
 //		System.exit(0);
-		OCR ocr = new OCR();
+		OCR2 ocr = new OCR2();
 
 		String url = "http://10.8.9.49";
 		String xh = "201340922108";
