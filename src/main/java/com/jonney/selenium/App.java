@@ -30,7 +30,7 @@ public class App {
 		// D:\Programs\phantom\bin  D:\Programs\phantomjs-2.1.1-windows\bin
 //		WebDriver driver = new ChromeDriver();
 		System.setProperty("phantomjs.binary.path",
-				"D:/Programs/phantomjs-2.1.1-windows/bin/phantomjs.exe");
+				"/workspace/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
 		PhantomJSDriver driver = new PhantomJSDriver();
 ////		driver.
 //		Object o = driver.executePhantomJS("phantom.abcde=require('webpage').create();return phantom.abcde;");//'http://www.baidu.com'
